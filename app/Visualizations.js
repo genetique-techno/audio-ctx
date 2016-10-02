@@ -45,6 +45,7 @@ function HBars( ctx ) {
   var padding = 20;
   var width = ctx.canvas.width - 2*padding;
   var height = ctx.canvas.height - 2*padding;;
+  var signalHeight = 200;
 
   return {
 
@@ -58,9 +59,10 @@ function HBars( ctx ) {
       });
 
       for (var i = 0; i < inArr.length; i++) {
+        if ( inArr[i] < 1 ) { continue; }
 
-        var heightDec = inArr[i]/255*height;
-        var revHeightDec = ( 1 - inArr[i]/255 ) * height;
+        var heightDec = inArr[i]/signalHeight*height;
+        var revHeightDec = ( 1 - inArr[i]/signalHeight ) * height;
 
         ctx.beginPath();
         ctx.rect( padding + split[i], padding + revHeightDec, boxWidth, heightDec );
