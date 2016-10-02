@@ -28,8 +28,8 @@ function draw() {
   updateFrequencyAnalyser( frequencyAnalyser );
   var displayArray = Array.from( frequencyAnalyser.__freqArray ).slice(lower, upper );
 
-  // shell.animate( displayArray );
-  hBars.animate( displayArray );
+  shell.animate( displayArray );
+  // hBars.animate( displayArray );
 
 
   ctx.restore();

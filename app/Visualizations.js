@@ -1,5 +1,9 @@
 function Shell( ctx ) {
   if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to Shell' ); }
+  var padding = 20;
+  var width = ctx.canvas.width - 2*padding;
+  var height = ctx.canvas.height - 2*padding;;
+  var signalHeight = 200;
 
   return {
 
@@ -10,15 +14,15 @@ function Shell( ctx ) {
         rad.push( split * i );
       });
 
-      var cx = ctx.canvas.width/2;
-      var cy = ctx.canvas.height/2;
+      var cx = width/2 + padding;
+      var cy = height/2 + padding;
 
 
       ctx.moveTo(cx, cy);
 
       for (var i = 0; i < inArr.length; i++) {
 
-        var radius = inArr[i]/2 + 50;
+        var radius = inArr[i] / signalHeight * width / 2;
 
         var endAngle;
         if ( i === inArr.length - 1) {
