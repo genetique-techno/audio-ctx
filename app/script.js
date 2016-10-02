@@ -11,6 +11,7 @@ var ctx = canvas.getContext('2d');
 
 var shell = new Shell( ctx );
 var hBars = new HBars( ctx );
+var splitBars = new SplitBars( ctx );
 
 updateFrequencyAnalyser( frequencyAnalyser );
 var maxValue = 0;
@@ -29,8 +30,8 @@ function draw() {
   var displayArray = Array.from( frequencyAnalyser.__freqArray ).slice(lower, upper );
 
   // shell.animate( displayArray );
-  hBars.animate( displayArray );
-
+  // hBars.animate( displayArray );
+  splitBars.animate( displayArray );
 
   ctx.restore();
 }

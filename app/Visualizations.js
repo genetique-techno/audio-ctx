@@ -4,9 +4,8 @@ function colorShader( inValue ) {
 
 function Shell( ctx ) {
   if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to Shell' ); }
-  var padding = 20;
-  var width = ctx.canvas.width - 2*padding;
-  var height = ctx.canvas.height - 2*padding;;
+  var width = ctx.canvas.width - 2;
+  var height = ctx.canvas.height - 2;
   var signalHeight = 200;
 
   return {
@@ -18,8 +17,8 @@ function Shell( ctx ) {
         rad.push( split * i );
       });
 
-      var cx = width/2 + padding;
-      var cy = height/2 + padding;
+      var cx = width/2;
+      var cy = height/2;
 
 
       ctx.moveTo(cx, cy);
@@ -50,9 +49,8 @@ function Shell( ctx ) {
 
 function HBars( ctx ) {
   if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to HBars' ); }
-  var padding = 20;
-  var width = ctx.canvas.width - 2*padding;
-  var height = ctx.canvas.height - 2*padding;;
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;;
   var signalHeight = 200;
 
   return {
@@ -73,7 +71,7 @@ function HBars( ctx ) {
         var revHeightDec = ( 1 - inArr[i]/signalHeight ) * height;
 
         ctx.beginPath();
-        ctx.rect( padding + split[i], padding + revHeightDec, boxWidth, heightDec );
+        ctx.rect( split[i], revHeightDec, boxWidth, heightDec );
         ctx.stroke();
         ctx.fillStyle = colorShader( inArr[i] );
         ctx.fill();
@@ -83,3 +81,39 @@ function HBars( ctx ) {
     }
   }
 }
+
+function SplitBars( ctx ) {
+  if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to SplitBars' ); }
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;
+  var signalHeight = 200;
+
+  return {
+
+    animate: function( inArr ) {
+
+      var boxWidth = width / inArr.length;
+
+      var split  = [];
+      inArr.forEach( function( f, i, arr ) {
+        split.push( width / arr.length * i );
+      });
+
+      for (var i = 0; i < inArr.length; i++) {
+        if ( inArr[i] < 1 ) { continue; }
+
+        var heightDec = inArr[i]/signalHeight*height;
+        var revHeightDec = ( 1 - inArr[i]/signalHeight ) * height;
+
+        ctx.beginPath();
+        ctx.rect( split[i], revHeightDec / 2, boxWidth, heightDec );
+        ctx.stroke();
+        ctx.fillStyle = colorShader( inArr[i] );
+        ctx.fill();
+
+      }
+
+    }
+  }
+}
+
