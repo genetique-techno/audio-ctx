@@ -1,7 +1,7 @@
 
 var audio = document.querySelector( 'audio' );
 var audioCtx = new ( window.AudioContext || window.webkitAudioContext )();
-var frequencyAnalyser = newFrequencyAnalyser( audioCtx, 256, 0.85 );
+var frequencyAnalyser = newFrequencyAnalyser( audioCtx, 32, 0.85 );
 var waveformAnalyser = newWaveFormAnalyser( audioCtx, 256, 0.85 );
 createAudioSource( audioCtx ).then( connect( frequencyAnalyser ) ).then( connect( waveformAnalyser) ).then( draw.bind( window ) );
 
@@ -22,7 +22,18 @@ var lower = parseInt(0/16*frequencyAnalyser.__freqArray.length);
 
 updateWaveformAnalyser( waveformAnalyser );
 
+
+
+
+
+var things = new PersistantThings( ctx );
+var drawStack = [];
+var now = Date.now();
+
 function draw() {
+
+  delta = ( Date.now() - now ) / 1000;
+  now = Date.now();
 
   requestAnimationFrame( draw );
 
@@ -38,7 +49,29 @@ function draw() {
   // shell.animate( displayArray );
   // hBars.animate( displayArray );
   // splitBars.animate( displayArray );
-  hWave.animate( waveformAnalyser.__waveArray );
+  // hWave.animate( waveformAnalyser.__waveArray );
+
+
+  frequencyAnalyser.__freqArray.forEach( function( amp, bin, arr ) {
+    if ( amp > 50 ) {
+      drawStack.push( new things.Circle( arr, bin ) );
+    }
+  });
+
+  animateStack( delta );
+  drawStack = cleanDrawStack();
 
   ctx.restore();
+}
+
+function animateStack( delta ) {
+  drawStack.forEach( function( thing ) {
+    thing.animate( delta );
+  });
+}
+
+function cleanDrawStack() {
+  return drawStack.filter( function( thing ) {
+    return thing.clear === false;
+  });
 }
