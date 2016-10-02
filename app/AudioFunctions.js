@@ -23,6 +23,7 @@ function createAudioSource( ctx ) {
 function connect( audioNode ) {
   return function( source ) {
     source.connect( audioNode );
+    return audioNode;
   }
 }
 
@@ -58,9 +59,9 @@ function newWaveFormAnalyser( ctx, fftSize, smoothingTimeConstant ) {
     return null;
   }
 
-  waveformAnalyser.fftSize = fftSizei;
-  var waveArray = new Uint8Array( waveformAnalyser.frequencyBinCount );
-  waveformAnalyser.getByteTimeDomainData( waveArray );
+  waveformAnalyser.fftSize = fftSize;
+  waveformAnalyser.__waveArray = new Uint8Array( waveformAnalyser.frequencyBinCount );
+  waveformAnalyser.getByteTimeDomainData( waveformAnalyser.__waveArray );
   waveformAnalyser.minDecibels = -90;
   waveformAnalyser.maxDecibels = -10;
   waveformAnalyser.smoothingTimeConstant = smoothingTimeConstant;
@@ -68,6 +69,6 @@ function newWaveFormAnalyser( ctx, fftSize, smoothingTimeConstant ) {
   return waveformAnalyser;
 }
 
-function updateWaveFormAnalyser( analyser ) {
-  analyser.getByteTimeDomainData( analyser.__freqArray );
+function updateWaveformAnalyser( analyser ) {
+  analyser.getByteTimeDomainData( analyser.__waveArray );
 }

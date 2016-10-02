@@ -117,3 +117,41 @@ function SplitBars( ctx ) {
   }
 }
 
+function HWave( ctx ) {
+  if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to HWave' ); }
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;
+  var signalHeight = 256;
+
+  return {
+
+    animate: function( inArr ) {
+
+      var segment = width / inArr.length;
+      var splitSegment = segment / inArr.length;
+      var split = [];
+      inArr.forEach( function( f, i, arr ) {
+        split.push( ( width / arr.length + splitSegment ) * i );
+      });
+
+      ctx.beginPath();
+
+      for ( var i = 0; i < inArr.length; i++ ) {
+
+        var heightDec = inArr[i]/signalHeight*height;
+        if ( Math.abs( inArr[i] - signalHeight/2 ) < 2 ) { heightDec = height/2; }
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = colorShader( inArr[i] );
+        ctx.lineJoin = 'round';
+        if ( i === 0 ) {
+          ctx.moveTo( split[i], heightDec );
+        } else {
+          ctx.lineTo( split[i], heightDec );
+        }
+        ctx.stroke();
+
+      }
+    }
+  }
+}
+
