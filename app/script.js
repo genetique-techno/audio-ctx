@@ -17,8 +17,8 @@ var hWave = new HWave( ctx );
 
 updateFrequencyAnalyser( frequencyAnalyser );
 var maxValue = 0;
-var upper = parseInt(4/16*frequencyAnalyser.__freqArray.length);
-var lower = parseInt(0/16*frequencyAnalyser.__freqArray.length);
+var upper = parseInt(4/16*frequencyAnalyser.__array.length);
+var lower = parseInt(0/16*frequencyAnalyser.__array.length);
 
 updateWaveformAnalyser( waveformAnalyser );
 
@@ -42,17 +42,17 @@ function draw() {
 
 
   updateFrequencyAnalyser( frequencyAnalyser );
-  var displayArray = Array.from( frequencyAnalyser.__freqArray ).slice(lower, upper );
+  var displayArray = Array.from( frequencyAnalyser.__array ).slice(lower, upper );
 
   updateWaveformAnalyser( waveformAnalyser );
 
   // shell.animate( displayArray );
   // hBars.animate( displayArray );
   // splitBars.animate( displayArray );
-  // hWave.animate( waveformAnalyser.__waveArray );
+  // hWave.animate( waveformAnalyser.__array );
 
 
-  frequencyAnalyser.__freqArray.forEach( function( amp, bin, arr ) {
+  frequencyAnalyser.__array.forEach( function( amp, bin, arr ) {
     if ( amp > 50 ) {
       drawStack.push( new things.Circle( arr, bin ) );
     }

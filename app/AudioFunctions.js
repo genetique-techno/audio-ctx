@@ -36,8 +36,8 @@ function newFrequencyAnalyser( ctx, fftSize, smoothingTimeConstant ) {
     console.log( 'ERROR: No context passed to newFrequencyAnalyser' );
   }
   frequencyAnalyser.fftSize = fftSize;
-  frequencyAnalyser.__freqArray = new Uint8Array( frequencyAnalyser.frequencyBinCount );
-  frequencyAnalyser.getByteFrequencyData( frequencyAnalyser.__freqArray );
+  frequencyAnalyser.__array = new Uint8Array( frequencyAnalyser.frequencyBinCount );
+  frequencyAnalyser.getByteFrequencyData( frequencyAnalyser.__array );
   frequencyAnalyser.minDecibels = -90;
   frequencyAnalyser.maxDecibels = -10;
   frequencyAnalyser.smoothingTimeConstant = smoothingTimeConstant;
@@ -46,7 +46,7 @@ function newFrequencyAnalyser( ctx, fftSize, smoothingTimeConstant ) {
 }
 
 function updateFrequencyAnalyser( analyser ) {
-  analyser.getByteFrequencyData( analyser.__freqArray );
+  analyser.getByteFrequencyData( analyser.__array );
 }
 
 function newWaveFormAnalyser( ctx, fftSize, smoothingTimeConstant ) {
@@ -60,8 +60,8 @@ function newWaveFormAnalyser( ctx, fftSize, smoothingTimeConstant ) {
   }
 
   waveformAnalyser.fftSize = fftSize;
-  waveformAnalyser.__waveArray = new Uint8Array( waveformAnalyser.frequencyBinCount );
-  waveformAnalyser.getByteTimeDomainData( waveformAnalyser.__waveArray );
+  waveformAnalyser.__array = new Uint8Array( waveformAnalyser.frequencyBinCount );
+  waveformAnalyser.getByteTimeDomainData( waveformAnalyser.__array );
   waveformAnalyser.minDecibels = -90;
   waveformAnalyser.maxDecibels = -10;
   waveformAnalyser.smoothingTimeConstant = smoothingTimeConstant;
@@ -70,5 +70,5 @@ function newWaveFormAnalyser( ctx, fftSize, smoothingTimeConstant ) {
 }
 
 function updateWaveformAnalyser( analyser ) {
-  analyser.getByteTimeDomainData( analyser.__waveArray );
+  analyser.getByteTimeDomainData( analyser.__array );
 }
