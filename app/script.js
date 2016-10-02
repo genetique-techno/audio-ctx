@@ -21,7 +21,7 @@ var maxValue = 0;
 var upper = parseInt(4/16*frequencyAnalyser.__array.length);
 var lower = parseInt(0/16*frequencyAnalyser.__array.length);
 
-var things = new PersistantThings( ctx, frequencyAnalyser, CircleConstructor, 50 );
+var droplets = new PersistantThings( ctx, frequencyAnalyser, CircleConstructor, 50 );
 var now = Date.now();
 
 function draw() {
@@ -45,7 +45,7 @@ function draw() {
   // splitBars.animate( displayArray );
   // hWave.animate( waveformAnalyser.__array );
 
-  things.draw( delta );
+  droplets.draw( delta );
 
 
 
