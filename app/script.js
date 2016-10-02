@@ -15,19 +15,13 @@ var hBars = new HBars( ctx );
 var splitBars = new SplitBars( ctx );
 var hWave = new HWave( ctx );
 
+updateWaveformAnalyser( waveformAnalyser );
 updateFrequencyAnalyser( frequencyAnalyser );
 var maxValue = 0;
 var upper = parseInt(4/16*frequencyAnalyser.__array.length);
 var lower = parseInt(0/16*frequencyAnalyser.__array.length);
 
-updateWaveformAnalyser( waveformAnalyser );
-
-
-
-
-
-var things = new PersistantThings( ctx, frequencyAnalyser, 50 );
-var drawStack = [];
+var things = new PersistantThings( ctx, frequencyAnalyser, CircleConstructor, 50 );
 var now = Date.now();
 
 function draw() {
