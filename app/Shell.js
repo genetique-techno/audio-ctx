@@ -1,5 +1,4 @@
 function Shell( ctx ) {
-
   if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to Shell' ) };
 
   return {
@@ -15,8 +14,8 @@ function Shell( ctx ) {
         rad.push( split * i );
       });
 
-      var cx = 200;
-      var cy = 200;
+      var cx = ctx.canvas.width/2;
+      var cy = ctx.canvas.height/2;
 
 
       ctx.moveTo(cx, cy);
