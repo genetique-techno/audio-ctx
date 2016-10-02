@@ -26,7 +26,7 @@ updateWaveformAnalyser( waveformAnalyser );
 
 
 
-var things = new PersistantThings( ctx );
+var things = new PersistantThings( ctx, frequencyAnalyser, 50 );
 var drawStack = [];
 var now = Date.now();
 
@@ -51,27 +51,10 @@ function draw() {
   // splitBars.animate( displayArray );
   // hWave.animate( waveformAnalyser.__array );
 
+  things.draw( delta );
 
-  frequencyAnalyser.__array.forEach( function( amp, bin, arr ) {
-    if ( amp > 50 ) {
-      drawStack.push( new things.Circle( arr, bin ) );
-    }
-  });
 
-  animateStack( delta );
-  drawStack = cleanDrawStack();
 
   ctx.restore();
 }
 
-function animateStack( delta ) {
-  drawStack.forEach( function( thing ) {
-    thing.animate( delta );
-  });
-}
-
-function cleanDrawStack() {
-  return drawStack.filter( function( thing ) {
-    return thing.clear === false;
-  });
-}
