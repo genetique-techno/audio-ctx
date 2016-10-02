@@ -21,11 +21,8 @@ function draw() {
 
   requestAnimationFrame( draw );
 
-
-
   updateFrequencyAnalyser( frequencyAnalyser );
   var displayArray = Array.from( frequencyAnalyser.__freqArray ).slice(lower, upper );
-  console.log(displayArray.length);
 
   shell.animate( displayArray );
 }
