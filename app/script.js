@@ -1,7 +1,7 @@
 
 var audio = document.querySelector( 'audio' );
 var audioCtx = new ( window.AudioContext || window.webkitAudioContext )();
-var frequencyAnalyser = newFrequencyAnalyser( audioCtx, 128, 0.85 );
+var frequencyAnalyser = newFrequencyAnalyser( audioCtx, 256, 0.85 );
 createAudioSource( audioCtx ).then( connect( frequencyAnalyser ) ).then( draw.bind( window ) );
 
 var canvas = document.getElementById('draw');
@@ -28,8 +28,8 @@ function draw() {
   updateFrequencyAnalyser( frequencyAnalyser );
   var displayArray = Array.from( frequencyAnalyser.__freqArray ).slice(lower, upper );
 
-  shell.animate( displayArray );
-  // hBars.animate( displayArray );
+  // shell.animate( displayArray );
+  hBars.animate( displayArray );
 
 
   ctx.restore();

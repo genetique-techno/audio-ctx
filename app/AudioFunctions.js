@@ -34,12 +34,12 @@ function newFrequencyAnalyser( ctx, fftSize, smoothingTimeConstant ) {
   } else {
     console.log( 'ERROR: No context passed to newFrequencyAnalyser' );
   }
-  frequencyAnalyser.fftSize = 128;
+  frequencyAnalyser.fftSize = fftSize;
   frequencyAnalyser.__freqArray = new Uint8Array( frequencyAnalyser.frequencyBinCount );
   frequencyAnalyser.getByteFrequencyData( frequencyAnalyser.__freqArray );
   frequencyAnalyser.minDecibels = -90;
   frequencyAnalyser.maxDecibels = -10;
-  frequencyAnalyser.smoothingTimeConstant = 0.85;
+  frequencyAnalyser.smoothingTimeConstant = smoothingTimeConstant;
 
   return frequencyAnalyser;
 }

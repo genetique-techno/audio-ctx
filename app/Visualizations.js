@@ -1,3 +1,7 @@
+function colorShader( inValue ) {
+  return 'rgb('+ 10 +', '+ parseInt(inValue*0.40) +', ' +parseInt(inValue*0.95) + ')';
+}
+
 function Shell( ctx ) {
   if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to Shell' ); }
   var padding = 20;
@@ -35,7 +39,7 @@ function Shell( ctx ) {
         ctx.arc(cx, cy, radius, rad[i], endAngle);
         ctx.lineTo( cx, cy );
         ctx.stroke();
-        ctx.fillStyle = 'rgb('+ 10 +', '+ parseInt(inArr[i]*0.40) +', ' +parseInt(inArr[i]*0.80) + ')';
+        ctx.fillStyle = colorShader( inArr[i] );
         ctx.fill();
         ctx.closePath();
 
@@ -71,7 +75,7 @@ function HBars( ctx ) {
         ctx.beginPath();
         ctx.rect( padding + split[i], padding + revHeightDec, boxWidth, heightDec );
         ctx.stroke();
-        ctx.fillStyle = 'rgb('+ 10 +', '+ parseInt(inArr[i]*0.40) +', ' +parseInt(inArr[i]*0.80) + ')';
+        ctx.fillStyle = colorShader( inArr[i] );
         ctx.fill();
 
       }
