@@ -155,3 +155,51 @@ function HWave( ctx ) {
   }
 }
 
+function RingWave( ctx ) {
+  if ( !ctx ) { return console.log( 'ERROR: No canvas context passed to HWave' ); }
+  var width = ctx.canvas.width;
+  var height = ctx.canvas.height;
+  var signalHeight = 256;
+
+  return {
+
+    animate: function( inArr ) {
+
+      var angleSegment = Math.PI*2 / inArr.length;
+      var splitAngleSegment = angleSegment / inArr.length;
+      var split = [];
+      inArr.forEach( function( f, i, arr ) {
+        split.push( ( angleSegment + splitAngleSegment ) * i );
+      });
+
+
+      var cx = width/2;
+      var cy = height/2;
+
+      for ( var i = 0; i < inArr.length; i++ ) {
+
+        var angle = split[i];
+
+        var baseRadius = Math.sqrt( Math.pow( cx, 2 ) + Math.pow( cy, 2 ) ) * 0.5;
+        var radius = baseRadius + 1000*( inArr[i] - signalHeight/2 )/signalHeight;
+
+        var yPos = Math.sin( angle ) * radius + cy;
+        var xPos = Math.cos( angle ) * radius + cx;
+
+        if ( i === 0 ) {
+          ctx.beginPath();
+          ctx.moveTo( xPos, yPos );
+        } else {
+          ctx.lineTo( xPos, yPos );
+        }
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = colorShader( inArr[i] );
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+      }
+    }
+  }
+}
+

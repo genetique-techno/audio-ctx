@@ -2,7 +2,7 @@
 var audio = document.querySelector( 'audio' );
 var audioCtx = new ( window.AudioContext || window.webkitAudioContext )();
 var frequencyAnalyser = newFrequencyAnalyser( audioCtx, 32, 0.85 );
-var waveformAnalyser = newWaveFormAnalyser( audioCtx, 256, 0.85 );
+var waveformAnalyser = newWaveFormAnalyser( audioCtx, 128, 0.85 );
 createAudioSource( audioCtx ).then( connect( frequencyAnalyser ) ).then( connect( waveformAnalyser) ).then( draw.bind( window ) );
 
 var canvas = document.getElementById('draw');
@@ -14,6 +14,7 @@ var shell = new Shell( ctx );
 var hBars = new HBars( ctx );
 var splitBars = new SplitBars( ctx );
 var hWave = new HWave( ctx );
+var ringWave = new RingWave( ctx );
 
 updateWaveformAnalyser( waveformAnalyser );
 updateFrequencyAnalyser( frequencyAnalyser );
@@ -44,8 +45,9 @@ function draw() {
   // hBars.animate( displayArray );
   // splitBars.animate( displayArray );
   // hWave.animate( waveformAnalyser.__array );
+  ringWave.animate( waveformAnalyser.__array );
 
-  droplets.draw( delta );
+  // droplets.draw( delta );
 
 
 
